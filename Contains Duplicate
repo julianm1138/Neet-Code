@@ -1,0 +1,26 @@
+Contains Duplicate
+Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
+
+Example 1:
+
+Input: nums = [1, 2, 3, 3]
+
+Output: true
+
+Example 2:
+
+Input: nums = [1, 2, 3, 4]
+
+Output: false
+
+// If we remove duplicates and compare the length of the array/structure with the array without duplicates that should tell us if there were duplicates because if the original had duplicates that would change the length. 
+
+
+  hasDuplicate(nums) {
+
+        const set = new Set(nums); 
+
+        return set.size !== nums.length;  
+      
+    }
+}
