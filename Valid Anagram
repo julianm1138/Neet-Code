@@ -19,13 +19,33 @@ Constraints:
 s and t consist of lowercase English letters.
 
 
-  isAnagram(s, t) {
-       
-             const str1 = s.toLowerCase().split('').sort((a, b) => a.localeCompare(b)).toString();
-             const str2 = t.toLowerCase().split('').sort((a, b) => a.localeCompare(b)).toString();
-             return str1 === str2;  
-        
-       
-        
+//Decrement object values by 1 for every character of the second string.
+//if all the values are 0, it must be an anagram because the count of each value will get used up by looping through the second string and if the count of letters are equal all the new counts should be zero
+//So we are essentially comparing the count of each of the first string's letters to the count of the second string's letters. 
+
+isAnagram(s, t) {
+
+ let counts = {};
+
+ for (const letter of s) {
+        if (counts[letter] === undefined) {
+            counts[letter] = 1;
+        } else {
+            counts[letter]++;
+        }
+     }
+
+for (const letter of t) {
+    console.log(letter)
+    if (!counts[letter]) {    
+        return false;
+    }
+    counts[letter]--;
+}
+
+for (let letter in counts) { 
+    if (counts[letter] !== 0) return false;
+}
+return true;        
     }
 }
