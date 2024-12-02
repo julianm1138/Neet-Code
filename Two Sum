@@ -1,0 +1,26 @@
+Given an array of integers nums and an integer target, return the indices i and j such that nums[i] + nums[j] == target and i != j.
+
+You may assume that every input has exactly one pair of indices i and j that satisfy the condition.
+
+Return the answer with the smaller index first.
+
+
+//The key to solving this problem is identifying the complements in the input array that sum to the target.
+//We can loop through the array and store every number and its index in an object.
+//If the complement exists in the object we return its index and the current index because the complement may already be in the object, and we should return the index of it and the current number (the current number is the other complement because target - other complement = complement).
+
+
+  twoSum(nums, target) {
+        let obj = {};
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        
+        if (obj.hasOwnProperty(complement)) {
+            return [obj[complement], i];
+        }
+        obj[nums[i]] = i;
+    }
+
+    }
+    
+}
