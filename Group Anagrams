@@ -1,0 +1,29 @@
+Given an array of strings strs, group all anagrams together into sublists. You may return the output in any order.
+
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+// We can solve this using an object and by creating a signature for each of the strings. The signature will be each of the strings sorted.
+// If the signature doesn't exist in the object, define the signature as the key and an empty array as the value. 
+// If the signature does exist, add the string to its value array.
+// In other words, the signature is associated with the input strings, but we need a structure to store multiple strings (array).
+// So for every string, we are checking if the signature is defined in the object, if not, we add the signature as a key and an empty array as its value. If the signature is defined, we add that string to its corresponding key/value. 
+
+  groupAnagrams(strs) {
+      const groups = {};
+
+      for (const str of strs) {
+        const signature = str.split('').sort().join('');
+        if (groups[signature] === undefined) {
+            groups[signature] = [];
+        }
+           groups[signature].push(str);
+      }
+      
+      let result = []; 
+
+      for (const key in groups) {
+         result.push(groups[key])
+      }
+        return result;
+    }
+}
