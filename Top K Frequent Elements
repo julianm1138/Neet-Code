@@ -1,0 +1,50 @@
+Given an integer array nums and an integer k, return the k most frequent elements within the array.
+
+The test cases are generated such that the answer is always unique.
+
+You may return the output in any order.
+
+Example 1:
+
+Input: nums = [1,2,2,3,3,3], k = 2
+
+Output: [2,3]
+
+// We can solve this with an object where the key is the number and the value its frequency.
+// If we can make an array of numbers.length with empty arrays, we can push the number to the index of the frequency. So basically sort the frequencies by the index.
+// This will give us an array of arrays where the inner arrays are the numbers sorted by their frequency (via the index).
+// Now we can loop from the end of the array to the front and add the numbers to a result array. If the length of the array is k, return the result array. 
+// We're using bucket[count] to place the frequencies in their correct positions. 
+
+TLDR
+// An array of empty arrays where each key is pushed to the [frequency] index of the array.
+
+
+
+ topKFrequent(nums, k) {
+        const counts = {};
+
+        for (const num of nums) {
+            if (counts[num] === undefined) {
+                counts[num] = 1;
+            } else {
+                counts[num]++;
+            }  
+        }
+
+         const buckets = new Array(nums.length + 1).fill().map(() => []);
+         for (let [num, count] of Object.entries(counts)) {
+            buckets[count].push(num);    
+         }
+
+         let result = [];
+
+         for (let i = buckets.length - 1; i >= 0; i--) {
+                for (let num of buckets[i]) {
+                    result.push(num);
+                    if (result.length === k) {
+                        return result;
+                    }
+            }
+         }
+    }        
