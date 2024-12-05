@@ -1,0 +1,35 @@
+Given an integer array nums, return an array output where output[i] is the product of all the elements of nums except nums[i].
+
+Each product is guaranteed to fit in a 32-bit integer.
+
+Example 1:
+
+Input: nums = [1,2,4,6]
+
+Output: [48,24,12,8]
+
+//It looks like the output array is 1 * 48, 1 * 24, 2 * 6, and 8 * 1. So the question is, how do we use the array given to us to get those products?
+//We can use two arrays, one that gets every product before nums[i] and one that gets every product after nums[i].
+//The first array should be 1 * 1, 1 * 1, 1 * 2, 4 * 2, so we will start with prefix[0] = 1 and push prefix[i] * nums[i] which will give us 1, 1, 2, 8 of our needed products.
+//Now we need 48, 24, 6, and 1. So we can get it by looping backwards through nums and setting suffix[nums.length - 1] = 1.
+//Finally multiply each number in prefix and suffix.
+
+
+ productExceptSelf(nums) {
+
+        let prefix = [];
+        let suffix = [];
+        prefix[0] = 1;
+        suffix[nums.length - 1] = 1;
+        for (let i = 0; i < nums.length - 1; i++) {
+          prefix.push(prefix[i] * nums[i]);
+        }
+        for (let i = nums.length - 1; i > 0; i--) {
+            suffix[i - 1] = suffix[i] * nums[i];
+        }
+        let result = [];
+        for (let i = 0; i < prefix.length; i++) {
+          result.push(prefix[i] * suffix[i])
+        }
+        return result;
+    }
