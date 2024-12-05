@@ -1,0 +1,38 @@
+Design an algorithm to encode a list of strings to a single string. The encoded string is then decoded back to the original list of strings.
+
+Please implement encode and decode
+
+// We can use each string's length with an escaped delimiter to encode the strings.
+
+
+encode(strs) {
+
+        let newStr = '';
+        for (const str of strs) {
+           newStr += str.length + '\/' + str;
+        }
+        return newStr;
+    }
+
+// To decode the string we can loop through the encoded string and push each decoded string to an empty array.
+// We get the index of the delimiter to create the length of each string, and we use each length to create each substring.
+// Move the pointer according to the string length.
+
+  decode(str) {
+    const decodedArr = [];
+    let i = 0;
+
+    while (i < str.length) {
+      
+        let slashIndex = str.indexOf('\/', i);
+      
+        let length = parseInt(str.substring(i, slashIndex));
+
+        let nextString = str.substring(slashIndex + 1, slashIndex + 1 + length);
+        decodedArr.push(nextString);
+
+        i = slashIndex + 1 + length;
+    }
+
+    return decodedArr;
+}
