@@ -1,0 +1,25 @@
+Given a string s, return true if it is a palindrome, otherwise return false.
+
+A palindrome is a string that reads the same forward and backward. It is also case-insensitive and ignores all non-alphanumeric characters.
+
+
+// We can solve this using two pointers. First clean the string.
+// pointerA starts at the first index, pointerB starts at the last index. If we check the first and last and work inwards and any comparison is not equal, it can't be a palindrome.
+// But if we continue checking and finish the loop without any unequal comparisons, it must be a palindrome. 
+
+
+
+
+isPalindrome(s) {
+        const cleanStr = s.toLowerCase().split(' ').join('').replace(/[^a-zA-Z0-9]/g, "");
+       let pointerA = 0;
+       let pointerB = cleanStr.length - 1;
+        while (pointerA < pointerB) {
+            if (cleanStr[pointerA] !== cleanStr[pointerB]) {
+            return false;
+          } 
+          pointerA++;
+          pointerB--;
+        }
+            return true;
+          }
