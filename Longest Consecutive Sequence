@@ -1,0 +1,32 @@
+Given an array of integers nums, return the length of the longest consecutive sequence of elements that can be formed.
+
+A consecutive sequence is a sequence of elements in which each element is exactly 1 greater than the previous element. The elements do not have to be consecutive in the original array.
+
+You must write an algorithm that runs in O(n) time.
+
+
+// We can solve this in O(n) time by using a set to remove duplicates and getting the start of a sequence with a number in the array - 1. 
+// If there is no number in the array that is number - 1, then that means that number is the start of a sequence.
+// Now we can count the length while the set has that number + 1. In the while loop, if we reach a number !== number + 1 the loop exits. This will repeat for all possible sequences in the set.
+// Return the maxLength 
+
+
+
+longestConsecutive(nums) {
+      const set = new Set(nums);
+     
+      let maxLength = 0;
+      for (const num of set) {
+        if (!set.has(num - 1)) {
+             let length = 1;
+            while (set.has(num + length)) {
+             length++;
+            }   
+        
+         if (maxLength < length) {
+               maxLength = length;
+            }
+        }
+      }
+   return maxLength;
+    }
