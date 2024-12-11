@@ -1,0 +1,31 @@
+Binary Search
+You are given an array of distinct integers nums, sorted in ascending order, and an integer target.
+
+Implement a function to search for target within nums. If it exists, then return its index, otherwise, return -1.
+
+// To implement binary search we can use two pointers one from the start and one from the end of the array.
+// Mid is the number representing the index and will always be the average of the left and right indices.
+// If the nums[mid] is the target return mid.
+// If nums[mid] is less than the target it means the target must be at a greater index than the current mid. So we need to shift the corresponding pointer to the right (mid + 1).
+// If nums[mid] is greater than the target it means the target must be at a lesser index than the current mid. So we need to shift the correct pointer to the left (mid - 1).
+
+//In essence we are using two pointers, checking if the middle index is the target, and if it's not shifting the left or right pointer to *narrow* the size of the searching area until the target index is found.
+
+
+
+      search(nums, target) {
+
+          let left = 0;
+          let right = nums.length - 1;
+        while (left <= right) {
+           let mid = Math.floor((left + right) / 2);
+           if (nums[mid] === target) return mid;
+
+           if (nums[mid] < target) {
+            left = mid + 1;
+           } else {
+            right = mid - 1;
+           }
+        }
+        return -1;
+    }
