@@ -5,8 +5,8 @@ Given the beginning of a singly linked list head, reverse the list, and return t
 // [0] -> [1] -> [2] -> null
 // Model two pointers: current and previous. Current is set to the first node. Previous is set to null because there is nothing before the first node.
 // Loop through the linked list
-// Break the first link to isolate the first node **make the head point to null**  [0] -> null
-// Point to the last node in the reversed linked list.
+// Break the first link to isolate the first node **make the head point to null so that it's the new final node in the list**  [0] -> null
+// Assign prev to be the last node in the reversed linked list.
 // Move curr pointer to the next node
 
 // So we are basically reconstructing the linked list by starting from null and then building node by node starting from [0] and going to the left.
@@ -19,8 +19,8 @@ reverseList(head) {
 
        while (curr !== null) {
         let nextNode = curr.next;   //Save the next node 
-        curr.next = prev;    //**make the head point to null**  [0] -> null
-        prev = curr;         //point to the last node in the reversed linked list (null will point to [0] then [0] will point to [1], etc. because without pointing to the previous node we cannot rebuild the LL in the reverse order) 
+        curr.next = prev;    //**make the head point to null so that it's the new final node in the list**  [0] -> null
+        prev = curr;         //set the prev variable to the previous node ( [0] then, [1], etc. so that we can reference it in the next iteration) 
         curr = nextNode;     //move curr to the saved node
        
        }
