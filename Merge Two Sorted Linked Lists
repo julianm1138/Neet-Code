@@ -1,0 +1,43 @@
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists into one sorted linked list and return the head of the new sorted linked list.
+
+The new list should be made up of nodes from list1 and list2.
+
+
+Input: list1 = [1,2,4], list2 = [1,3,5]
+
+Output: [1,1,2,3,4,5]
+
+// We can solve this by building a new linked list with an empty node and compare the values between the nodes in list1 and list2.
+
+// Make an empty node to serve as the new linked list, define a pointer to keep track of each list.
+// If list1's value is less than list2's value we want to connect the empty node to list1's head and move to the next node in list1. 
+// Else connect the empty node to list2's head and move to the next node in list2.
+
+// So we're basically building a new linked list depending on which value is less than the other and moving to the next node in its list.
+
+
+
+mergeTwoLists(list1, list2) {
+    let dummyNode = new ListNode();
+    let current = dummyNode;
+
+    let listOnePointer = list1;
+    let listTwoPointer = list2;
+
+    while (listOnePointer !== null && listTwoPointer !== null) {
+        if (listOnePointer.val < listTwoPointer.val) {    // If list1 value is less than list2 value we add that list's head to our new LL.
+            current.next = listOnePointer;                   
+            listOnePointer = listOnePointer.next;        // Move to the next node in list1.
+        } else {
+            current.next = listTwoPointer;               // If list2 value is less than list1 value we add that list's head to our new LL.
+            listTwoPointer = listTwoPointer.next;        // Move to the next node in list 2.
+        }
+        current = current.next;                         // Move to null in the new linked list to avoid overwritting the previous node in it.
+    }
+
+    current.next = (listOnePointer !== null) ? listOnePointer : listTwoPointer;
+
+    return dummyNode.next;
+}
