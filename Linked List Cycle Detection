@@ -1,0 +1,46 @@
+Given the beginning of a linked list head, return true if there is a cycle in the linked list. Otherwise, return false.
+
+There is a cycle in a linked list if at least one node in the list that can be visited again by following the next pointer.
+
+Internally, index determines the index of the beginning of the cycle, if it exists. The tail node of the list will set it's next pointer to the index-th node. If index = -1, then the tail node points to null and no cycle exists.
+
+Note: index is not given to you as a parameter.
+
+// So given a linked list of connected references in memory, and since we do not know the index of the next reference in memory, we would have to make sure we are checking if the node we visited is visited again.
+// We can do that with a set. If we put each node in the set, and if the list points to the same node that must mean we have a cycle.
+
+
+
+hasCycle(head) {
+
+        const set = new Set();
+        let curr = head;
+        
+        while (curr !== null) {
+         if (set.has(curr)) {
+            return true;
+         }
+        set.add(curr);
+        curr = curr.next;
+        }
+        return false;
+
+    }
+
+
+// We can also solve this using the tortoise and hare algorithm where one pointer checks every node and the other checks every other node. 
+// Because the slow pointer is checking every node, if we have a cycle the fast pointer will eventually meet it because the fast pointer will be jumping back and forth between the same 2 nodes.
+
+ hasCycle(head) {
+
+        let slow = head;
+        let fast = head;
+
+        while (fast !== null && fast.next !== null) {
+
+         slow = slow.next;
+         fast = fast.next.next;
+        if (slow === fast) return true;
+     }
+      return false;
+    }
