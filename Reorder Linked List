@@ -1,0 +1,66 @@
+You are given the head of a singly linked-list.
+
+The positions of a linked list of length = 7 for example, can intially be represented as:
+
+[0, 1, 2, 3, 4, 5, 6]
+
+Reorder the nodes of the linked list to be in the following order:
+
+[0, 6, 1, 5, 2, 4, 3]
+
+Notice that in the general case for a list of length = n the nodes are reordered to be in the following order:
+
+[0, n-1, 1, n-2, 2, n-3, ...]
+
+You may not modify the values in the list's nodes, but instead you must reorder the nodes themselves.
+
+
+
+// In order to reorder the linked lists we need to split the linked list in half, reverse the second half, and then alternate linking each of their nodes.
+
+// To split the list we can traverse the head at two rates: one rate is 1 node per iteration, the second rate is 2 nodes per iteration. By the time the second rate reaches the end the first should be in the middle of the list. 
+// To reverse the new second list we can link the head with null and then link every next node to the previous node.
+// To merge the two lists we use two temp variables to save each next node from each list, connect the second head to the first head by replacing the first head's next value, and replacing the second head's next value with the saved values. 
+
+
+
+
+
+reorderList(head) {
+     
+     let slow = head;
+     let fast = head;
+     while (fast !== null && fast.next !== null) {
+    
+        slow = slow.next;
+        fast = fast.next.next;
+     }
+     let secondHalf = slow.next;
+     slow.next = null;
+     
+     let prev = null;
+     let current = secondHalf;
+                            
+     while (current !== null) {        
+                                       
+        let nextNode = current.next;  
+        current.next = prev;
+        prev = current;
+        current = nextNode;
+     }
+     let reversedSecondHalf = prev;
+
+     let firstHalf = head;
+
+     while (firstHalf !== null && reversedSecondHalf !== null) {
+       let firstHalfTemp = firstHalf.next;
+       let secondHalfTemp = reversedSecondHalf.next;  
+       firstHalf.next = reversedSecondHalf;
+
+       if (firstHalfTemp === null) break;
+       reversedSecondHalf.next = firstHalfTemp;
+
+       firstHalf = firstHalfTemp;
+       reversedSecondHalf = secondHalfTemp;
+     }    
+  }
