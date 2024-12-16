@@ -19,7 +19,7 @@ reverseList(head) {
 
        while (curr !== null) {
         let nextNode = curr.next;   //Save the next node 
-        curr.next = prev;    //**make the head point to null so that it's the new final node in the list**  [0] -> null
+        curr.next = prev;    //**make the head point to null so that it's the new final node in the list**  [0] -> null and this is the step that will reverse the links because we are taking the current and linking the prev to it.
         prev = curr;         //set the prev variable to the previous node ( [0] then, [1], etc. so that we can reference it in the next iteration) 
         curr = nextNode;     //move curr to the saved node
        
