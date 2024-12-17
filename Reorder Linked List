@@ -19,11 +19,13 @@ You may not modify the values in the list's nodes, but instead you must reorder 
 // In order to reorder the linked lists we need to split the linked list in half, reverse the second half, and then alternate linking each of their nodes.
 
 // To split the list we can traverse the head at two rates: one rate is 1 node per iteration, the second rate is 2 nodes per iteration. By the time the second rate reaches the end the first should be in the middle of the list. 
+
 // To reverse the new second list we can link the head with null and then link every next node to the previous node.
-// To merge the two lists we use two temp variables to save each next node from each list, connect the second head to the first head by replacing the first head's next value, and replacing the second head's next value with the saved values. 
 
-
-
+// To merge the two lists we use two temp variables to save each next node from each list, connect the first head to the second head by replacing the first head's next node with the second head
+// The key is firstHalf.next = reversedSecondHalf. This part represents connecting the node after firstHalf to something else. This works for all .next references.
+// Move the pointers for each so first and second list's head is head.next
+// Repeat until both are null.
 
 
 reorderList(head) {
@@ -48,17 +50,15 @@ reorderList(head) {
         prev = current;
         current = nextNode;
      }
-     let reversedSecondHalf = prev;
+     let reversedSecondHalf = prev; 6
 
-     let firstHalf = head;
+     let firstHalf = head; 4
 
      while (firstHalf !== null && reversedSecondHalf !== null) {
-       let firstHalfTemp = firstHalf.next;
+       let firstHalfTemp = firstHalf.next;                   
        let secondHalfTemp = reversedSecondHalf.next;  
        firstHalf.next = reversedSecondHalf;
-
-       if (firstHalfTemp === null) break;
-       reversedSecondHalf.next = firstHalfTemp;
+       reversedSecondHalf.next = firstHalfTemp;   
 
        firstHalf = firstHalfTemp;
        reversedSecondHalf = secondHalfTemp;
