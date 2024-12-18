@@ -1,0 +1,37 @@
+You are given the beginning of a linked list head, and an integer n.
+
+Remove the nth node from the end of the list and return the beginning of the list.
+
+// We can solve this by using a fast and slow pointer.
+// Fast starts n steps ahead first, then while fast and fast.next are not null, fast and slow move 1 step ahead.
+// This will make slow stop at the node before the n-th node.
+// Point the node before the n-th node (the slow pointer) to the node two steps ahead.
+
+
+
+   removeNthFromEnd(head, n) {
+
+        let fast = head;
+        let slow = head;
+
+
+        let counter = 0;
+        while (counter < n) {
+            fast = fast.next;
+            counter++;
+        
+        }
+
+        if (!fast) {             // Here handle cases when fast is null after the first loop and return null.
+         head = head.next; 
+         return head;
+        }
+
+        while (fast !== null && fast.next !== null) {
+           fast = fast.next;     
+           slow = slow.next;
+          
+        }
+       slow.next = slow.next.next;
+       return head;  
+    }
