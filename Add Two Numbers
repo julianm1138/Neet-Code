@@ -1,0 +1,35 @@
+You are given two non-empty linked lists, l1 and l2, where each represents a non-negative integer.
+
+The digits are stored in reverse order, e.g. the number 123 is represented as 3 -> 2 -> 1 -> in the linked list.
+
+Each of the nodes contains a single digit. You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Return the sum of the two numbers as a linked list.
+
+
+// Since the digits are stored in reverse order already we can calculate the sum.
+// To get the sum we need to make an empty node to serve as the new list's head, add the current values of each list considering any possible carries, and move the pointers for all three lists.
+
+
+addTwoNumbers(l1, l2) {
+
+        let carry = 0;                   //Define the carry
+        let sumList = new ListNode();    //Define empty node
+        let curr = sumList;              //Make reference to the empty node/head
+        while (l1 || l2 || carry) {      //The digits are stored in reversed order so no need to reverse l1 or l2
+
+            let val1 =  l1 ? l1.val : 0;       //Make sure the current values are valid
+            let val2 =  l2 ? l2.val : 0;
+
+            let sum = val1 + val2 + carry;      //Get the sum
+            carry = Math.floor(sum / 10);       //Calculate possible carry
+            curr.next = new ListNode(sum % 10);  //First node is empty and the next node will be the head
+            curr = curr.next;                    //Move pointer to the next node
+
+            if (l1) l1 = l1.next;
+            if (l2) l2 = l2.next;
+
+
+        }
+        return sumList.next;
+    }
