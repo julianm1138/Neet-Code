@@ -1,0 +1,35 @@
+You are given an array of integers nums containing n + 1 integers. Each integer in nums is in the range [1, n] inclusive.
+
+Every integer appears exactly once, except for one integer which appears two or more times. Return the integer that appears more than once.
+
+
+// We can solve this by treating the values as indices and using the tortoise and hare algorithm. 
+// We make two pointers: slow goes one step per iteration, fast goes two steps per iteration. Each pointer will go to the index that is represented by the current integer.
+// for example [1, 2, 3] integer 2 is at index 1, so I move to index 2 because we go to the index of the integer
+
+
+// We will find the cycle because we are using the integers as pointers
+
+
+findDuplicate(nums) {
+
+       let slow = nums[0];
+       let fast = nums[0];
+
+       while (true) {
+        slow = nums[slow];             // move pointer forward by one
+        fast = nums[nums[fast]];       // move pointer forward by two
+        if (slow === fast) break;     //indicates a duplicate
+       }
+    
+       slow = nums[0];
+       
+       while (slow !== fast) {
+        slow = nums[slow];        // slow will eventually point to the same integer fast is pointing to
+        fast = nums[fast];        // fast keeps the state of the prior loop
+}
+return slow; 
+
+    }
+
+    }
